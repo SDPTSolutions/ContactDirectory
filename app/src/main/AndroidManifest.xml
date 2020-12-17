@@ -8,8 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ContactDirectory">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <activity android:name=".InformationActivity"></activity>
+        <activity android:name=".ContactsActivity" />
+        <activity android:name=".AgreementActivity" />
+        <activity android:name=".GetStartedActivity" />
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
