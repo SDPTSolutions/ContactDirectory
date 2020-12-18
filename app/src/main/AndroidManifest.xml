@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".InformationActivity"></activity>
+        <activity android:name=".FavoritesActivity"></activity>
+        <activity android:name=".HelpActivity" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MenuActivity" />
+        <activity android:name=".InformationActivity" />
         <activity android:name=".ContactsActivity" />
         <activity android:name=".AgreementActivity" />
         <activity android:name=".GetStartedActivity" />

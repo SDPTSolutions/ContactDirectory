@@ -3,12 +3,15 @@ package com.patrick.contactdirectory;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class InformationActivity extends AppCompatActivity {
 
     TextView txtName, txtLocation, txtNumber, txtSchedule;
+
+    ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,10 @@ public class InformationActivity extends AppCompatActivity {
         txtLocation = findViewById(R.id.txtLocation);
         txtNumber = findViewById(R.id.txtNumber);
         txtSchedule = findViewById(R.id.txtSchedule);
+
+        btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> finish());
 
         Contact contact = new Contact();
 

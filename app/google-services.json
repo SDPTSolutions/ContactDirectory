@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "94590405867",
+    "project_id": "contactdirectory-92009",
+    "storage_bucket": "contactdirectory-92009.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94590405867:android:31970e87fabb04094302ae",
+        "android_client_info": {
+          "package_name": "com.patrick.contactdirectory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94590405867-1i5dfppd5f10m4sumsv8l1ntv377r0j1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTjX2jeocHPQbFQIhyTvI2ygzMZRNupHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94590405867-1i5dfppd5f10m4sumsv8l1ntv377r0j1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
