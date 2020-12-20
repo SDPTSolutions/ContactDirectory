@@ -17,18 +17,20 @@
         <ImageView
             android:id="@+id/imgLogo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/digital_phone_book_logo"
+            android:layout_height="150dp"
+            android:src="@drawable/logo_text"
             />
 
         <Button
             android:id="@+id/btnGetStarted"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Get Started"
             android:layout_below="@id/imgLogo"
             android:textColor="@color/white"
             android:background="@drawable/bg_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
             />
 
     </RelativeLayout>

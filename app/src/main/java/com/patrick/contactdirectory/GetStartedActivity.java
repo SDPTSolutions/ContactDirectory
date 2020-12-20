@@ -20,7 +20,6 @@ public class GetStartedActivity extends AppCompatActivity {
 
         btnGetStarted = findViewById(R.id.btnGetStarted);
 
-
         btnGetStarted.setOnClickListener(v -> {
             Intent i = new Intent(getBaseContext(), AgreementActivity.class);
             startActivity(i);

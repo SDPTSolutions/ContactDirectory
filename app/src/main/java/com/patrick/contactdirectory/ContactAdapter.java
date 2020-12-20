@@ -53,7 +53,6 @@ public class ContactAdapter extends  RecyclerView.Adapter<ContactAdapter.ViewHol
         ViewHolder(View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtName);
-
             itemView.setOnClickListener(this);
         }
 

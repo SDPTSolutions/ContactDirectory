@@ -6,6 +6,8 @@ public class Contact {
     private String location;
     private String number;
     private String schedule;
+    private String key;
+    private String mapCoordinates;
 
     Contact(){
 
@@ -34,6 +36,10 @@ public class Contact {
         return schedule;
     }
 
+    public String getKey(){return key;}
+
+    public String getMapCoordinates() { return mapCoordinates; }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -49,4 +55,8 @@ public class Contact {
     public void setSchedule(String schedule) {
         this.schedule = schedule;
     }
+
+    public void setKey(String key) { this.key = key; }
+
+    public void setMapCoordinates(String mapCoordinates) { this.mapCoordinates = mapCoordinates; }
 }

@@ -1,9 +1,12 @@
 package com.patrick.contactdirectory;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,12 +16,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class ContactsActivity extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
 
     DatabaseReference mDatabase;
 
@@ -35,6 +44,7 @@ public class ContactsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_contacts);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
 
         listContacts = findViewById(R.id.listContacts);
         txtSearch = findViewById(R.id.txtSearch);
@@ -43,25 +53,31 @@ public class ContactsActivity extends AppCompatActivity {
         btnAccount = findViewById(R.id.btnAccount);
 
         btnMenu.setOnClickListener(v -> startActivity(new Intent(getBaseContext(),MenuActivity.class)));
-        btnAccount.setOnClickListener(v -> startActivity(new Intent(getBaseContext(),LoginActivity.class)));
+        btnAccount.setOnClickListener(v -> {
+
+            if(mAuth.getCurrentUser() == null) startActivity(new Intent(getBaseContext(),LoginActivity.class));
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContactsActivity.this)
+                        .setTitle("PROFILE")
+                        .setMessage(
+                                "Email : " + mAuth.getCurrentUser().getEmail()
+                        )
+                        .setPositiveButton("OK",null)
+                        .setNegativeButton("Log Out", (dialog, which) -> {
+                            FirebaseAuth.getInstance().signOut();
+                            Toast.makeText(this, "Account Signed Out.", Toast.LENGTH_SHORT).show();
+                        });
+                builder.create();
+                builder.show();
+
+            }
+
+        });
 
 
-        firebaseTest();
-        dummyData();
+        //dummyData();
         loadContacts();
         searchContacts();
-    }
-
-    void firebaseTest(){
-
-        writeNewContact("Patrick Macaraig","Sun","09123456789","Tomorrow");
-
-    }
-
-    private void writeNewContact(String name, String location, String number, String schedule) {
-        Contact contact = new Contact(name, location,number,schedule);
-
-        mDatabase.child("contacts").push().setValue(contact);
     }
 
     void dummyData(){
@@ -77,6 +93,33 @@ public class ContactsActivity extends AppCompatActivity {
 
     void loadContacts(){
 
+        mDatabase.child("contacts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                contacts.clear();
+                listContacts.setAdapter(null);
+
+                for(DataSnapshot snap:snapshot.getChildren()){
+                    Contact contact = snap.getValue(Contact.class);
+                    contacts.add(contact);
+
+                    showContacts();
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    void showContacts(){
+
         listContacts.setAdapter(null);
 
         ContactAdapter adapter = new ContactAdapter(contacts,getBaseContext());
@@ -89,6 +132,8 @@ public class ContactsActivity extends AppCompatActivity {
             i.putExtra("location",contact.getLocation());
             i.putExtra("number",contact.getNumber());
             i.putExtra("schedule",contact.getSchedule());
+            i.putExtra("key",contact.getKey());
+            i.putExtra("mapCoordinates",contact.getMapCoordinates());
 
 
             startActivity(i);
@@ -96,7 +141,6 @@ public class ContactsActivity extends AppCompatActivity {
 
         listContacts.setLayoutManager(new LinearLayoutManager(getBaseContext()));
         listContacts.setAdapter(adapter);
-
 
     }
 
@@ -111,7 +155,7 @@ public class ContactsActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(count >0) filterContacts(s.toString().toLowerCase());
-                else loadContacts();
+                else showContacts();
 
             }
 
@@ -144,6 +188,8 @@ public class ContactsActivity extends AppCompatActivity {
             i.putExtra("location",contact.getLocation());
             i.putExtra("number",contact.getNumber());
             i.putExtra("schedule",contact.getSchedule());
+            i.putExtra("key",contact.getKey());
+            i.putExtra("mapCoordinates",contact.getMapCoordinates());
 
 
             startActivity(i);
