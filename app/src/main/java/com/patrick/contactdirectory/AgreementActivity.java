@@ -3,8 +3,10 @@ package com.patrick.contactdirectory;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,9 +29,16 @@ public class AgreementActivity extends AppCompatActivity {
 
             if(chkAgree.isChecked()){
 
+                SharedPreferences sharedpreferences = getSharedPreferences("PREFERENCES", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putInt("isFirstTime",0);
+                editor.commit();
+
                 Intent i = new Intent(getBaseContext(),ContactsActivity.class);
                 startActivity(i);
                 finish();
+
+
 
             }else{
 
